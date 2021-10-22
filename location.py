@@ -59,7 +59,7 @@ class Location:
             _.append(ALL_LETTER.index(card.letter))
         return min(_)
 
-    def update_location_visible_to(self, owner: bool = False, all: bool = False):
+    def update_location_and_visibility(self, owner: bool = False, all: bool = False):
         for card in self.content:
             card.location = self.name
             card.update_observability(owner, all)
@@ -77,8 +77,8 @@ class Nature:
         return f"MOTHER NATURE\ndeck:   {self.deck.content}\nexcepted:  {self.excepted.content}"
 
     def initiate_observability(self):
-        self.deck.update_location_visible_to()
-        self.excepted.update_location_visible_to(all=True)
+        self.deck.update_location_and_visibility()
+        self.excepted.update_location_and_visibility(all=True)
 
     def deck_shuffle(self):
         random.shuffle(self.deck.content)
@@ -106,11 +106,11 @@ class Castle:
         self.drafted = Location(self.suit, 'draft' + f"     of {self.suit}", [])
 
     def initiate_observability(self):
-        self.king.update_location_visible_to(all=True)
-        self.visible_cabinet.update_location_visible_to(all=True)
-        self.invisible_cabinet.update_location_visible_to(owner=True)
-        self.hands.update_location_visible_to(owner=True)
-        self.drafted.update_location_visible_to(all=True)
+        self.king.update_location_and_visibility(all=True)
+        self.visible_cabinet.update_location_and_visibility(all=True)
+        self.invisible_cabinet.update_location_and_visibility(owner=True)
+        self.hands.update_location_and_visibility(owner=True)
+        self.drafted.update_location_and_visibility(all=True)
 
 
 class Camp:
@@ -132,9 +132,9 @@ class Camp:
         self.right_corp = Location(self.suit, 'right_corp' + f"     of {self.suit}  against {self.enemy}", [])
 
     def update_observability(self, owner=False, all=False):
-        self.left_corp.update_location_visible_to(owner=owner, all=all)
-        self.center_corp.update_location_visible_to(owner=owner, all=all)
-        self.right_corp.update_location_visible_to(owner=owner, all=all)
+        self.left_corp.update_location_and_visibility(owner=owner, all=all)
+        self.center_corp.update_location_and_visibility(owner=owner, all=all)
+        self.right_corp.update_location_and_visibility(owner=owner, all=all)
 
 
 class Field:
@@ -158,7 +158,7 @@ class Field:
                 self.operative = Camp('operative' + f"  of {self.suit}  against {self.enemy}", self.suit, _suit)
 
     def initiate_observability(self):
-        self.drafted.update_location_visible_to(owner=True)
+        self.drafted.update_location_and_visibility(owner=True)
         self.arranged.update_observability(owner=True)
         self.operative.update_observability(all=True)
 

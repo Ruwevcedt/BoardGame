@@ -1,6 +1,6 @@
 from action import Action, ALL_ACTION
 
-class Phase:
+class precedure:
     name: str
     available_action: list[Action]
 
@@ -11,9 +11,9 @@ class Phase:
 
 class Season:
     name: str
-    procedures: list[Phase]
+    procedures: list[precedure]
 
-    def __init__(self, name: str, procedure: list[Phase]):
+    def __init__(self, name: str, procedure: list[precedure]):
         self.name = name
         self.procedure = procedure
 
