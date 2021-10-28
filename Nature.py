@@ -1,5 +1,6 @@
 import random
 
+from Card import ALL_MARK
 from Location import Location
 
 
@@ -10,7 +11,7 @@ class Nature:
     def __init__(self):
         print('\nlocation: generating nature')
         self.deck = Location(suit=None, name='deck', visible_to=[None], content=[])
-        self.excepted = Location(suit=None, name='excepted', visible_to=[None], content=[])
+        self.excepted = Location(suit=None, name='excepted', visible_to=ALL_MARK, content=[])
         print('location: nature generated: ', self)
 
     def __repr__(self):
