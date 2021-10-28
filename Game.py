@@ -1,6 +1,6 @@
-from Card import AllCard, ALL_MARK, VALID_MARK
-from Nature import Nature
+from Card import AllCard
 from Nation import AllNation
+from Nature import Nature
 
 
 class Game:
@@ -15,19 +15,9 @@ class Game:
         self.nature = Nature()
         self.all_nation = AllNation()
 
-        print('\nGame: generating deck')
-        self.nature.deck.put_content(self.all_card())
-        print(f'Game: deck generated: {self.nature.deck.content}')
-
-        print('\nGame: distributing king')
-        for index, nation in enumerate(self.all_nation()):
-            nation.castle.king.put_content(self.nature.deck.pop_content(suit=[nation.suit], letter=['K']))
-        print(f'Game: king distributed: {[nation.castle.king for nation in self.all_nation()]}')
-
-        print('\nGame: shuffling deck')
-        self.nature.deck_shuffle()
-        print(f'Game: deck shuffled: {self.nature.deck.content}')
-
+        self.generate_deck()
+        self.distribute_king()
+        self.shuffle_deck()
         print('\nGame: distribute hands')
         for _turn in range(5):
             for nation in self.all_nation():
@@ -49,3 +39,18 @@ class Game:
                 _can_start[nation.is_stable()].append(index)
         print(f'Game: hands distributed: {[nation.castle.hands for nation in self.all_nation()]}')
 
+    def generate_deck(self):
+        print('\nGame: generating deck')
+        self.nature.deck.put_content(self.all_card())
+        print(f'Game: deck generated: {self.nature.deck.content}')
+
+    def shuffle_deck(self):
+        print('\nGame: shuffling deck')
+        self.nature.deck_shuffle()
+        print(f'Game: deck shuffled: {self.nature.deck.content}')
+
+    def distribute_king(self):
+        print('\nGame: distributing king')
+        for index, nation in enumerate(self.all_nation()):
+            nation.castle.king.put_content(self.nature.deck.pop_content(suit=[nation.suit], letter=['K']))
+        print(f'Game: king distributed: {[nation.castle.king for nation in self.all_nation()]}')
