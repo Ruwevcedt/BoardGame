@@ -65,9 +65,6 @@ class Card:
         self.letter = letter
         self.number = ALL_NUMBER[ALL_LETTER.index(letter)]
 
-        self.location = 'deck'
-        self.observable = []
-
     def __repr__(self):
         return f"{self.suit} {self.letter}"
 

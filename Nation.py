@@ -1,4 +1,4 @@
-from Card import VALID_MARK,ALL_MARK
+from Card import VALID_MARK, ALL_MARK
 from Location import Location, Field
 
 
@@ -13,9 +13,12 @@ class Castle:
     def __init__(self, suit: str):
         self.suit = suit
         self.king = Location(suit=self.suit, name='king' + f" of {self.suit}", visible_to=ALL_MARK, content=[])
-        self.visible_cabinet = Location(suit=self.suit, name='visible_cabinet' + f" of {self.suit}", visible_to=ALL_MARK, content=[])
-        self.invisible_cabinet = Location(suit=self.suit, name='invisible_cabinet' + f" of {self.suit}", visible_to=[None, self.suit], content=[])
-        self.hands = Location(suit=self.suit, name='hands' + f" of {self.suit}", visible_to=[None, self.suit], content=[])
+        self.visible_cabinet = Location(suit=self.suit, name='visible_cabinet' + f" of {self.suit}",
+                                        visible_to=ALL_MARK, content=[])
+        self.invisible_cabinet = Location(suit=self.suit, name='invisible_cabinet' + f" of {self.suit}",
+                                          visible_to=[None, self.suit], content=[])
+        self.hands = Location(suit=self.suit, name='hands' + f" of {self.suit}", visible_to=[None, self.suit],
+                              content=[])
         self.drafted = Location(suit=self.suit, name='draft' + f" of {self.suit}", visible_to=ALL_MARK, content=[])
 
     def open_invisible_cabinet(self):
