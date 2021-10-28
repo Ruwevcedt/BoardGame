@@ -1,3 +1,3 @@
-from game import Game
+from Game import Game
 
-test_game = Game(0)
+test = Game(0)
