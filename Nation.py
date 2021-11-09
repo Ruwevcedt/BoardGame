@@ -49,9 +49,9 @@ class Nation:
     def is_stable(self) -> bool:
         return True if len(self.castle.hands.search_index_of_content(suit=[self.suit])) >= 2 else False
 
-    def open_war(self, aggressive: str, defensive: str):
-        _foreign_suit = aggressive if defensive == self.suit else defensive
-        self.war[_foreign_suit] = Field('war' + f" from {aggressive} to {defensive}", aggressive, defensive)
+    def open_war(self, field: Field):
+        _foreign_suit = field.offensive_suit if field.defensive_suit == self.suit else field.defensive_suit
+        self.war[_foreign_suit] = field
 
     def close_war(self, with_nation: str):
         self.war[with_nation] = None
@@ -73,8 +73,8 @@ class AllNation:
             self.all_nation.append(Nation(suit))
         print('location: all_nation generated: ', self())
 
-    def __call__(self):
-        return self.all_nation
+    def __call__(self, suit: str = ''):
+        return self.all_nation[VALID_MARK.index(suit)] if suit else self.all_nation
 
     def __getitem__(self, index):
         return self()[index]
