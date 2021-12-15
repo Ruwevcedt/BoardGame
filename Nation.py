@@ -50,8 +50,10 @@ class Nation:
         return True if len(self.castle.hands.search_index_of_content(suit=[self.suit])) >= 2 else False
 
     def open_war(self, field: Field):
-        _foreign_suit = field.offensive_suit if field.defensive_suit == self.suit else field.defensive_suit
-        self.war[_foreign_suit] = field
+        _hostile_suit = field.offensive_suit \
+            if field.defensive_suit == self.suit \
+            else field.defensive_suit
+        self.war[_hostile_suit] = field
 
     def close_war(self, with_nation: str):
         self.war[with_nation] = None

@@ -114,9 +114,9 @@ class Field:
     arranged: dict[str, Camp]
     operative: dict[str, Camp]
 
-    def __init__(self, name: str, aggressive: str, defensive: str):
+    def __init__(self, name: str, offensive: str, defensive: str):
         self.name = name
-        self.offensive_suit = aggressive
+        self.offensive_suit = [offensive]
         self.defensive_suit = defensive
 
         for _suit in [self.offensive_suit, self.defensive_suit]:

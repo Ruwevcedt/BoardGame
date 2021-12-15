@@ -1,5 +1,6 @@
-from Card import AllCard
-from Nation import AllNation
+from Card import AllCard, Card
+from Location import Field
+from Nation import AllNation, Nation
 from Nature import Nature
 
 
@@ -8,6 +9,7 @@ class Game:
     all_card: AllCard
     nature: Nature
     all_nation: AllNation
+    all_war: list[Field]
 
     def __init__(self, id: int):
         self.id = id
@@ -49,7 +51,7 @@ class Game:
         print('\nGame: distribute hands')
         for _turn in range(5):
             for nation in self.all_nation():
-                nation.castle.hands.put_content(self.nature.deck_draw(1))
+                self.draw(nation)
         print(f'Game: hands distributed: {[nation.castle.hands for nation in self.all_nation()]}')
 
     def _check_can_start(self):
@@ -57,3 +59,45 @@ class Game:
         for index, nation in enumerate(self.all_nation()):
             _can_start[nation.is_stable()].append(index)
         return _can_start
+
+    def draw(self, nation: Nation):
+        nation.castle.hands.put_content(self.nature.deck_draw(1))
+
+    def set_cabinet(self, nation: Nation, visible_cabinet: Card or None, invisible_cabinet: Card or None):
+        _temp_visible_cabinet, _temp_invisible_cabinet = \
+            nation.castle.visible_cabinet.pop_content(number_of_cards_to_pop_out=1), \
+            nation.castle.invisible_cabinet.pop_content(number_of_cards_to_pop_out=1)
+        nation.castle.hands.put_content([_temp_visible_cabinet, _temp_invisible_cabinet])
+
+        nation.castle.visible_cabinet.put_content(visible_cabinet)
+        nation.castle.invisible_cabinet.put_content(invisible_cabinet)
+
+    def open_war(self, offensive_nation: Nation, defensive_nation: Nation):
+        war_field = Field(
+            name=f"war from {offensive_nation.suit} to {defensive_nation.suit}",
+            offensive=offensive_nation.suit,
+            defensive=defensive_nation.suit
+        )
+        offensive_nation.open_war(war_field)
+        defensive_nation.open_war(war_field)
+        self.all_war.append(war_field)
+
+    def draft_army(self, nation: Nation, card: Card):
+
+    def hire_mercenary(self, nation: Nation):
+        _card: Card = self.nature.deck_draw(number=1)
+        if _card.number is None:
+            self.nature.back_to_deck(card=_card)
+        else:
+
+
+
+    def close_war(self, war: Field):
+        _offensive_nation: str = war.offensive_suit
+        _defensive_nation: str = war.defensive_suit
+
+        self.all_nation(suit=_offensive_nation)\
+            .close_war(with_nation=_defensive_nation)
+        self.all_nation(suit=_defensive_nation)\
+            .close_war(with_nation=_offensive_nation)
+        self.all_war.remove(war)

@@ -1,6 +1,6 @@
 import random
 
-from Card import ALL_MARK
+from Card import Card, ALL_MARK
 from Location import Location
 
 
@@ -24,3 +24,6 @@ class Nature:
         _ = self.deck.content[:number]
         self.deck.content = self.deck.content[number:]
         return _
+
+    def back_to_deck(self, card: Card):
+        self.deck.put_content(card)
