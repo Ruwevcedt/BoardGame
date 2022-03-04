@@ -26,28 +26,20 @@ class Setup:
     def _distribute_hands(self, game: Game):
         for i in range(5):
             for suit in VALID_MARK:
-                for nation in game.search_nation_by_suit(suit=suit):
-                    nation.castle.hands.put_cards(game.nature.deck.draw(quantity=1))
+                game.search_nation_by_suit(suit=suit).castle.hands.put_cards(game.nature.deck.draw(quantity=1))
 
     def _check_nation_can_start(self, game: Game) -> bool:
-        _ = []
+        _can_start = []
         for suit in VALID_MARK:
-            for nation in game.search_nation_by_suit(suit=suit):
-                _.append(nation.can_start_game())
-        return False if False in _ else True
+            _can_start.append(game.search_nation_by_suit(suit=suit).can_start_game())
+        return False if False in _can_start else True
 
     def _make_nation_can_start(self, game: Game):
         for suit in VALID_MARK:
-            for nation in game.search_nation_by_suit(suit=suit):
-                if not nation.can_start_game():
-                    _ = nation.castle.hands.pop_by_indexes(
-                        indexes=nation.castle.hands.search_by_suit(suit=nation.suit)
-                    )
-                    game.nature.deck.put_cards(
-                        cards=nation.castle.hands.pop_by_indexes(
-                            indexes=list(
-                                range(len(nation.castle.hands.content))
-                            )
-                        )
-                    )
-                    nation.castle.hands.put_cards(cards=_)
+            nation = game.search_nation_by_suit(suit=suit)
+            if not nation.can_start_game():
+                _domestic_cards = nation.castle.hands.pop_by_indexes(
+                    indexes=nation.castle.hands.search_by_suit(suit=nation.suit)
+                )
+                game.nature.deck.put_cards(cards=nation.castle.hands.content)
+                nation.castle.hands.content = _domestic_cards
