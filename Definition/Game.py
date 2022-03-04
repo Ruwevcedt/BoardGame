@@ -10,6 +10,7 @@ class Game:
     heart: Nation
     diamond: Nation
     club: Nation
+    turn: list[str] = VALID_MARK
 
     def __init__(self, game_id: int):
         self.game_id = game_id
@@ -19,5 +20,8 @@ class Game:
         self.diamond = Nation(suit=VALID_MARK[2])
         self.club = Nation(suit=VALID_MARK[3])
 
-    def search_nation_by_suit(self, suit: str):
+    def search_nation_by_suit(self, suit: str) -> Nation:
         return [self.spade, self.heart, self.diamond, self.club][VALID_MARK.index(suit)]
+
+    def update_turn(self, turn: list[str]):
+        self.turn = turn

@@ -1,6 +1,7 @@
+import random
+
 from Card import Card, ALL_MARK
 from Location import Location
-import random
 
 
 class Deck(Location):

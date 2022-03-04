@@ -29,10 +29,10 @@ class Setup:
                 game.search_nation_by_suit(suit=suit).castle.hands.put_cards(game.nature.deck.draw(quantity=1))
 
     def _check_nation_can_start(self, game: Game) -> bool:
-        _can_start = []
+        _can_start = True
         for suit in VALID_MARK:
-            _can_start.append(game.search_nation_by_suit(suit=suit).can_start_game())
-        return False if False in _can_start else True
+            _can_start = _can_start and game.search_nation_by_suit(suit=suit).can_start_game()
+        return _can_start
 
     def _make_nation_can_start(self, game: Game):
         for suit in VALID_MARK:

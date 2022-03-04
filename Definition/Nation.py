@@ -17,4 +17,3 @@ class Nation:
 
     def is_it_alive(self) -> bool:
         return False if self.castle.king is None else True
-

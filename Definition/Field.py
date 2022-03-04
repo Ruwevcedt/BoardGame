@@ -54,4 +54,3 @@ class Field:
     def __init__(self, suit: str):
         self.suit = suit
         self.conflict = []
-

@@ -50,5 +50,3 @@ class Castle:
         self.hands.__init__(suit=self.suit)
         self.cabinet.__init__(suit=self.suit)
         self.barracks.__init__(suit=self.suit)
-
-
