@@ -1,7 +1,7 @@
 import random
 
-from Definition.Game import Game
 from Definition.Card import ALL_LETTER
+from Definition.Game import Game
 
 
 class CabinetReshuffle:
@@ -30,6 +30,5 @@ class CabinetReshuffle:
             _power[nation.castle.cabinet.light.content[0].letter].append(nation.suit)
         for letter, suits in _power:
             _turn.extend(random.shuffle(suits))
-        game.turn = _turn.reverse()
-
-
+        _turn.reverse()
+        game.turn = _turn
