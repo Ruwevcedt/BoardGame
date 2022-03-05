@@ -7,6 +7,8 @@ from Definition.Game import Game
 class CabinetReshuffle:
     def __call__(self, game: Game):
         self._cabinet_resign(game=game)
+        self._set_cabinet(game=game)
+        self._update_turn(game=game)
 
     def _cabinet_resign(self, game: Game):
         for suit in game.turn:
