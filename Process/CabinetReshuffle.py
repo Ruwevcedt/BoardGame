@@ -13,6 +13,7 @@ class CabinetReshuffle:
     def _cabinet_resign(self, game: Game):
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
+            nation.castle.cabinet.hide_cabinet()
             _former_cabinet = []
             _former_cabinet.extend(nation.castle.cabinet.light.pop_by_indexes(indexes=[0]))
             _former_cabinet.extend(nation.castle.cabinet.dark.pop_by_indexes(indexes=[0]))
@@ -23,6 +24,7 @@ class CabinetReshuffle:
             nation = game.search_nation_by_suit(suit=suit)
             nation.castle.cabinet.light.put_cards(cards=[])  # todo: need user input
             nation.castle.cabinet.dark.put_cards(cards=[])  # todo: need user input
+            nation.castle.cabinet.visibility_initiation()
 
     def _update_turn(self, game: Game):
         _turn = []
