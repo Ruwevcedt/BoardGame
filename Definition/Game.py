@@ -22,6 +22,3 @@ class Game:
 
     def search_nation_by_suit(self, suit: str) -> Nation:
         return [self.spade, self.heart, self.diamond, self.club][VALID_MARK.index(suit)]
-
-    def update_turn(self, turn: list[str]):
-        self.turn = turn
