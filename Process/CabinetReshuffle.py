@@ -1,6 +1,7 @@
 import random
 
 from Definition.Game import Game
+from Definition.Card import ALL_LETTER
 
 
 class CabinetReshuffle:
@@ -21,27 +22,14 @@ class CabinetReshuffle:
             nation.castle.cabinet.light.put_cards(cards=[])  # todo: need user input
             nation.castle.cabinet.dark.put_cards(cards=[])  # todo: need user input
 
-    def _update_turn(self, game: Game): # todo: dirty
+    def _update_turn(self, game: Game):
         _turn = []
-        _light_cabinet_powers = {
-            'Z': [],
-            'Q': [],
-            'J': [],
-            'A': [],
-            '10': [],
-            '9': [],
-            '8': [],
-            '7': [],
-            '6': [],
-            '5': [],
-            '4': [],
-            '3': [],
-            '2': [],
-        }
+        _power = {}.fromkeys(ALL_LETTER, [])
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
-            _light_cabinet_powers[nation.castle.cabinet.light.content[0].letter].extend(nation.suit)
-        for letter, suits in _light_cabinet_powers:
+            _power[nation.castle.cabinet.light.content[0].letter].append(nation.suit)
+        for letter, suits in _power:
             _turn.extend(random.shuffle(suits))
-        game.update_turn(_turn.reverse())
+        game.turn = _turn.reverse()
+
 
