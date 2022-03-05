@@ -21,11 +21,10 @@ class CabinetReshuffle:
             nation.castle.cabinet.light.put_cards(cards=[])  # todo: need user input
             nation.castle.cabinet.dark.put_cards(cards=[])  # todo: need user input
 
-    def _update_turn(self, game: Game):
+    def _update_turn(self, game: Game): # todo: dirty
         _turn = []
         _light_cabinet_powers = {
             'Z': [],
-            'K': [],
             'Q': [],
             'J': [],
             'A': [],
@@ -44,5 +43,5 @@ class CabinetReshuffle:
             _light_cabinet_powers[nation.castle.cabinet.light.content[0].letter].extend(nation.suit)
         for letter, suits in _light_cabinet_powers:
             _turn.extend(random.shuffle(suits))
-        game.update_turn(_turn)
+        game.update_turn(_turn.reverse())
 
