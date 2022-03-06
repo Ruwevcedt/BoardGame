@@ -15,15 +15,15 @@ class CabinetReshuffle:
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
             nation.castle.cabinet.hide_cabinet()
-            _former_cabinet = []
-            _former_cabinet.extend(nation.castle.cabinet.cabinet.pop_by_indexes(indexes=[0]))
-            _former_cabinet.extend(nation.castle.cabinet.shadow_cabinet.pop_by_indexes(indexes=[0]))
-            nation.castle.hands.put_cards(cards=_former_cabinet)
+            nation.castle.hands.put_cards(
+                cards=[nation.castle.cabinet.cabinet.cards.pop(0),
+                       nation.castle.cabinet.shadow_cabinet.cards.pop(0)]
+            )
 
     def _set_cabinet(self, game: Game, suit: str, cabinet: Card or None, shadow_cabinet: Card or None):
         nation = game.search_nation_by_suit(suit=suit)
-        nation.castle.cabinet.cabinet.put_cards([cabinet])
-        nation.castle.cabinet.shadow_cabinet.put_cards([shadow_cabinet])
+        nation.castle.cabinet.cabinet.cards = cabinet
+        nation.castle.cabinet.shadow_cabinet.cards = shadow_cabinet
         nation.castle.cabinet.visibility_initiation()
 
     def _update_turn(self, game: Game):

@@ -41,5 +41,7 @@ class Setup:
                 _domestic_cards = nation.castle.hands.pop_by_indexes(
                     indexes=nation.castle.hands.search_by_suit(suit=nation.suit)
                 )
+                _abandoned = len(nation.castle.hands.cards)
                 game.nature.deck.put_cards(cards=nation.castle.hands.cards)
                 nation.castle.hands.cards = _domestic_cards
+                nation.castle.hands.put_cards(game.nature.deck.draw(quantity=_abandoned))
