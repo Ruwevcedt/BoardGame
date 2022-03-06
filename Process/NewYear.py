@@ -3,9 +3,13 @@ from Definition.Game import Game
 
 
 class NewYear:
-    def __call__(self, game: Game):
+    def __call__(self, game: Game) -> int:
         self._check_is_it_alive(game=game)
         self._draw_cards(game=game)
+        if game.safe_check():
+            return 0
+        else:
+            return 1
 
     def _downfall(self, game: Game):
         for index, suit in enumerate(game.turn):

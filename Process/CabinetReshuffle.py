@@ -5,11 +5,15 @@ from Definition.Game import Game
 
 
 class CabinetReshuffle:
-    def __call__(self, game: Game):
+    def __call__(self, game: Game) -> int:
         self._cabinet_resign(game=game)
         for suit in game.turn:
             self._set_cabinet(game=game, suit=suit, cabinet=None, shadow_cabinet=None)  # todo: user input
         self._update_turn(game=game)
+        if game.safe_check():
+            return 0
+        else:
+            return 1
 
     def _cabinet_resign(self, game: Game):
         for suit in game.turn:

@@ -3,7 +3,7 @@ from Definition.Game import Game
 
 
 class Setup:
-    def __call__(self, game: Game):
+    def __call__(self, game: Game) -> int:
         self._deck_makeup(game=game)
         self._distribute_king(game=game)
         self._shuffle_deck(game=game)
@@ -11,6 +11,10 @@ class Setup:
         while not self._check_nation_can_start(game=game):
             self._make_nation_can_start(game=game)
         self._shuffle_deck(game=game)
+        if game.safe_check():
+            return 0
+        else:
+            return 1
 
     def _deck_makeup(self, game: Game):
         game.nature.deck.content = AllCard().all_card
