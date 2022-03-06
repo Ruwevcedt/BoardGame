@@ -31,7 +31,7 @@ class CabinetReshuffle:
         _power = {}.fromkeys(ALL_LETTER, [])
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
-            _power[nation.castle.cabinet.cabinet.content[0].letter].append(nation.suit)
+            _power[nation.castle.cabinet.cabinet.cards[0].letter].append(nation.suit)
         for letter in ALL_LETTER:
             for suits in _power[letter]:
                 _turn.extend(random.shuffle(suits))  # todo: use dice

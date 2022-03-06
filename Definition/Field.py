@@ -14,7 +14,7 @@ class Troop(Location):
 
     def force_power(self) -> int:
         _ = 0
-        for card in self.content:
+        for card in self.cards:
             _ += card.number if card.suit == self.suit else card.number - 1
         return _
 

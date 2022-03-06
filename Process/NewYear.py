@@ -14,16 +14,16 @@ class NewYear:
     def _check_is_it_alive(self, game: Game):
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
-            if not nation.castle.hands.content:
-                _dead_king = nation.castle.king.content.pop(0)
-                game.nature.excepted.content.extend([_dead_king])
-                if not nation.castle.cabinet.cabinet.content and not nation.castle.cabinet.shadow_cabinet:
+            if not nation.castle.hands.cards:
+                _dead_king = nation.castle.king.cards.pop(0)
+                game.nature.excepted.cards.extend([_dead_king])
+                if not nation.castle.cabinet.cabinet.cards and not nation.castle.cabinet.shadow_cabinet:
                     self._downfall(game=game)
-                elif nation.castle.cabinet.cabinet.content[0].letter == 'J':
-                    nation.castle.king.put_cards([nation.castle.cabinet.cabinet.content.pop(0)])
-                elif nation.castle.cabinet.shadow_cabinet.content[0].letter == 'J':
+                elif nation.castle.cabinet.cabinet.cards[0].letter == 'J':
+                    nation.castle.king.put_cards([nation.castle.cabinet.cabinet.cards.pop(0)])
+                elif nation.castle.cabinet.shadow_cabinet.cards[0].letter == 'J':
                     nation.castle.cabinet.open_cabinet()
-                    nation.castle.king.put_cards([nation.castle.cabinet.shadow_cabinet.content.pop(0)])
+                    nation.castle.king.put_cards([nation.castle.cabinet.shadow_cabinet.cards.pop(0)])
                     nation.castle.cabinet.visibility_initiation()
                 else:
                     self._downfall(game=game)
@@ -32,9 +32,9 @@ class NewYear:
         _quantity = 0
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
-            if nation.castle.cabinet.cabinet.content[0].letter == 'Q':
+            if nation.castle.cabinet.cabinet.cards[0].letter == 'Q':
                 _quantity = 2
-            elif nation.castle.cabinet.shadow_cabinet.content[0].letter == 'Q':
+            elif nation.castle.cabinet.shadow_cabinet.cards[0].letter == 'Q':
                 nation.castle.cabinet.open_cabinet()
                 _quantity = 2
             else:

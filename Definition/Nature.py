@@ -12,8 +12,8 @@ class Deck(Location):
         random.shuffle(self.content)
 
     def draw(self, quantity: int) -> list[Card]:
-        _ = self.content[:quantity]
-        self.content = self.content[quantity:]
+        _ = self.cards[:quantity]
+        self.content = self.cards[quantity:]
         return _
 
 

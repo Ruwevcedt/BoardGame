@@ -18,7 +18,7 @@ class Setup:
     def _distribute_king(self, game: Game):
         _kings = game.nature.deck.pop_by_indexes(indexes=game.nature.deck.search_by_letter(letter='K'))
         for king in _kings:
-            game.search_nation_by_suit(king.suit).castle.king.content = [king]
+            game.search_nation_by_suit(king.suit).castle.king.cards = [king]
 
     def _shuffle_deck(self, game: Game):
         game.nature.deck.shuffle()
@@ -41,5 +41,5 @@ class Setup:
                 _domestic_cards = nation.castle.hands.pop_by_indexes(
                     indexes=nation.castle.hands.search_by_suit(suit=nation.suit)
                 )
-                game.nature.deck.put_cards(cards=nation.castle.hands.content)
-                nation.castle.hands.content = _domestic_cards
+                game.nature.deck.put_cards(cards=nation.castle.hands.cards)
+                nation.castle.hands.cards = _domestic_cards
