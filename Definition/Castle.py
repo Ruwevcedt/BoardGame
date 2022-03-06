@@ -1,4 +1,4 @@
-from Card import Card, ALL_MARK
+from Card import ALL_MARK
 from Location import Location
 
 
@@ -10,25 +10,25 @@ class Hands(Location):
 
 class Cabinet:
     suit: str
-    light: Location
-    dark: Location
+    cabinet: Location
+    shadow_cabinet: Location
 
     def __init__(self, suit: str):
         self.suit = suit
-        self.light.__init__(suit=self.suit, name="cabinet.light", visible_to=ALL_MARK, content=[])
-        self.dark.__init__(suit=self.suit, name="cabinet.dark", visible_to=[None, self.suit], content=[])
+        self.cabinet.__init__(suit=self.suit, name="cabinet.light", visible_to=ALL_MARK, content=[])
+        self.shadow_cabinet.__init__(suit=self.suit, name="cabinet.dark", visible_to=[None, self.suit], content=[])
 
     def visibility_initiation(self):
-        self.light.visible_to = ALL_MARK
-        self.dark.visible_to = [None, self.suit]
+        self.cabinet.visible_to = ALL_MARK
+        self.shadow_cabinet.visible_to = [None, self.suit]
 
     def hide_cabinet(self):
-        self.light.visible_to = [None, self.suit]
-        self.dark.visible_to = [None, self.suit]
+        self.cabinet.visible_to = [None, self.suit]
+        self.shadow_cabinet.visible_to = [None, self.suit]
 
     def open_cabinet(self):
-        self.light.visible_to = ALL_MARK
-        self.dark.visible_to = ALL_MARK
+        self.cabinet.visible_to = ALL_MARK
+        self.shadow_cabinet.visible_to = ALL_MARK
 
 
 class Barracks(Location):
@@ -39,14 +39,14 @@ class Barracks(Location):
 
 class Castle:
     suit: str
-    king: Card or None
+    king: Location
     hands: Hands
     cabinet: Cabinet
     barracks: Barracks
 
     def __init__(self, suit: str):
         self.suit = suit
-        self.king = None
+        self.king = Location(suit=self.suit, name='king', visible_to=ALL_MARK, content=[])
         self.hands.__init__(suit=self.suit)
         self.cabinet.__init__(suit=self.suit)
         self.barracks.__init__(suit=self.suit)

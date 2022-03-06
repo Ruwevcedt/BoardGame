@@ -16,4 +16,4 @@ class Nation:
         return True if len(self.castle.hands.search_by_suit(suit=self.suit)) >= 2 else False
 
     def is_it_alive(self) -> bool:
-        return False if self.castle.king is None else True
+        return False if not self.castle.king else True

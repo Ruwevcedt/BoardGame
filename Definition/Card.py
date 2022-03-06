@@ -79,32 +79,26 @@ class AllCard:
             for letter in REGULAR_LETTER:
                 self.all_card.append(Card(suit, letter))
 
-    def __call__(self) -> list[Card]:
-        return self.all_card
-
-    def __getitem__(self, index: int) -> Card:
-        return self()[index]
-
     def search_by_suit(self, suit: str or None) -> list[int]:
         _ = []
-        for ind, card in enumerate(self()):
+        for ind, card in enumerate(self.all_card):
             _.append(ind) if card.suit == suit else False
         return _
 
     def search_by_color(self, color: str or None) -> list[int]:
         _ = []
-        for ind, card in enumerate(self()):
+        for ind, card in enumerate(self.all_card):
             _.append(ind) if card.color == color else False
         return _
 
     def search_by_letter(self, letter: str or None) -> list[int]:
         _ = []
-        for ind, card in enumerate(self()):
+        for ind, card in enumerate(self.all_card):
             _.append(ind) if card.letter == letter else False
         return _
 
     def search_by_number(self, number: int or None) -> list[int]:
         _ = []
-        for ind, card in enumerate(self()):
+        for ind, card in enumerate(self.all_card):
             _.append(ind) if card.number == number else False
         return _
