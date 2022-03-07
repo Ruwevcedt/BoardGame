@@ -65,10 +65,10 @@ class Castle:
     def cabinet_resign(self):
         move_card(from_location=self.cabinet.cabinet, to_location=self.hands,
                   from_location_index=0
-                  )
+                  ) if self.cabinet.cabinet.cards else False
         move_card(from_location=self.cabinet.shadow_cabinet, to_location=self.hands,
                   from_location_index=0
-                  )
+                  ) if self.cabinet.shadow_cabinet.cards else False
 
     def conscription(self, index_of_warrior: int):
         move_card(from_location=self.hands, to_location=self.barracks,

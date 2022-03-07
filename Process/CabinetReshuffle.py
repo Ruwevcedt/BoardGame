@@ -33,11 +33,17 @@ class CabinetReshuffle:
     def _update_turn(self, game: Game):
         _turn = []
         _power = {}.fromkeys(ALL_LETTER, [])
+        _power[''] = []
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
-            _power[nation.castle.cabinet.cabinet.cards[0].letter].append(nation.suit)
-        for letter in ALL_LETTER:
-            for suits in _power[letter]:
-                _turn.extend([] if suits is None else random.shuffle(suits))  # todo: use dice
-        _turn.reverse()
+            if nation.castle.cabinet.cabinet.cards:
+                _power[nation.castle.cabinet.cabinet.cards[0].letter].append(nation.suit)
+            else:
+                _power[''].append(nation.suit)
+        for letter in _power.keys():
+            if _power[letter]:
+                random.shuffle(_power[letter])
+                _turn.extend(_power[letter]) # todo: use dice
+            else:
+                pass
         game.turn = _turn
