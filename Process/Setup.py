@@ -1,4 +1,4 @@
-from Definition.Card import AllCard, VALID_MARK
+from Definition.Card import AllCard, VALID_SUIT
 from Definition.Game import Game
 
 
@@ -11,10 +11,6 @@ class Setup:
         while not self._check_nation_can_start(game=game):
             self._make_nation_can_start(game=game)
         self._shuffle_deck(game=game)
-        if game.safe_check():
-            return 0
-        else:
-            return 1
 
     def _deck_makeup(self, game: Game):
         game.nature.deck.content = AllCard().all_card
@@ -29,17 +25,17 @@ class Setup:
 
     def _distribute_hands(self, game: Game):
         for i in range(5):
-            for suit in VALID_MARK:
+            for suit in VALID_SUIT:
                 game.search_nation_by_suit(suit=suit).castle.hands.put_cards(game.nature.deck.draw(quantity=1))
 
     def _check_nation_can_start(self, game: Game) -> bool:
         _can_start = True
-        for suit in VALID_MARK:
+        for suit in VALID_SUIT:
             _can_start = _can_start and game.search_nation_by_suit(suit=suit).can_start_game()
         return _can_start
 
     def _make_nation_can_start(self, game: Game):
-        for suit in VALID_MARK:
+        for suit in VALID_SUIT:
             nation = game.search_nation_by_suit(suit=suit)
             if not nation.can_start_game():
                 _domestic_cards = nation.castle.hands.pop_by_indexes(

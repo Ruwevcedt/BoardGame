@@ -1,11 +1,11 @@
-ALL_MARK = [
+ALL_SUIT = [
     None,
     'spade',
     'heart',
     'diamond',
     'club',
 ]
-VALID_MARK = ALL_MARK[1:]
+VALID_SUIT = ALL_SUIT[1:]
 
 ALL_COLOR = [
     None,
@@ -61,7 +61,7 @@ class Card:
 
     def __init__(self, suit: str or None, letter: str):
         self.suit = suit
-        self.color = ALL_COLOR[ALL_MARK.index(suit)]
+        self.color = ALL_COLOR[ALL_SUIT.index(suit)]
         self.letter = letter
         self.number = ALL_NUMBER[ALL_LETTER.index(letter)]
 
@@ -75,7 +75,7 @@ class AllCard:
     def __init__(self):
         self.all_card = []
         self.all_card.extend([Card(None, 'Z')] * 2)
-        for suit in VALID_MARK:
+        for suit in VALID_SUIT:
             for letter in REGULAR_LETTER:
                 self.all_card.append(Card(suit, letter))
 
