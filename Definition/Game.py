@@ -1,10 +1,11 @@
-from Card import VALID_SUIT, AllCard
+from Card import VALID_SUIT, Card, AllCard
 from Nation import Nation
 from Nature import Nature
 
 
 class Game:
     game_id: int
+    ideal_cards: list[Card]
     nature: Nature
     spade: Nation
     heart: Nation
@@ -14,6 +15,7 @@ class Game:
 
     def __init__(self, game_id: int):
         self.game_id = game_id
+        self.ideal_cards = AllCard().all_card
         self.nature = Nature()
         self.spade = Nation(suit=VALID_SUIT[0])
         self.heart = Nation(suit=VALID_SUIT[1])
@@ -22,4 +24,3 @@ class Game:
 
     def search_nation_by_suit(self, suit: str) -> Nation:
         return [self.spade, self.heart, self.diamond, self.club][VALID_SUIT.index(suit)]
-

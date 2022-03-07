@@ -1,5 +1,6 @@
-from Definition.Card import AllCard, Card
+from Definition.Card import Card
 from Definition.Game import Game
+from Definition.Location import move_card
 
 
 class Diplomacy:
@@ -9,52 +10,43 @@ class Diplomacy:
             if __negotiation[2]:
                 nation1 = game.search_nation_by_suit(suit=__negotiation[0])
                 nation2 = game.search_nation_by_suit(suit=__negotiation[1])
-                nation2.castle.hands.put_cards(nation1.castle.hands.pop_by_indexes([]))  # todo: user input
-                nation1.castle.hands.put_cards(nation2.castle.hands.pop_by_indexes([]))  # todo: user input
+                _index_of_card_to_assign_to_nation1 = 0  # todo: user input
+                _index_of_card_to_assign_to_nation2 = 0  # todo: user input
+                move_card(from_location=nation1.castle.hands, to_location=nation2.castle.hands,
+                          from_location_index=_index_of_card_to_assign_to_nation2)
+                move_card(from_location=nation2.castle.hands, to_location=nation1.castle.hands,
+                          from_location_index=_index_of_card_to_assign_to_nation1)
 
     def _negotiation(self, game: Game, from_suit: str, to_suit: str) -> (str, str, bool):
         __proposition = self._suggestion(game=game, from_suit=from_suit, to_suit=to_suit,
-                                         mark=[], letter=[])  # todo: user input
+                                         marks=[], letters=[])  # todo: user input
         __response = self._response(game=game, from_suit=__proposition[1], to_suit=__proposition[0],
-                                    mark=[], letter=[])  # todo: user input
-        _count = 3
+                                    marks=[], letters=[])  # todo: user input
+        _count = 2
         _settlement: bool = __response == __proposition
         while _settlement or _count == 0:
             __proposition = self._suggestion(game=game, from_suit=from_suit, to_suit=to_suit,
-                                             mark=[], letter=[])  # todo: user input
+                                             marks=[], letters=[])  # todo: user input
             __response = self._response(game=game, from_suit=__proposition[1], to_suit=__proposition[0],
-                                        mark=[], letter=[])  # todo: user input
+                                        marks=[], letters=[])  # todo: user input
             _count -= 1
             _settlement: bool = __response == __proposition
         return from_suit, to_suit, _settlement
 
-    def _suggestion(self, game: Game, from_suit: str, to_suit: str, mark: list[str], letter: list[str]) \
+    def _suggestion(self, game: Game, from_suit: str, to_suit: str, marks: list[str], letters: list[str]) \
             -> (str, str, list[Card]) or None:
-        from_nation = from_suit
-        if to_suit in game.turn:
-            to_nation = to_suit
-        else:
-            return None
-        _ideal_cards = AllCard()
+        _ideal_cards = game.ideal_cards
         _proposition = []
-        for card in _ideal_cards.all_card:
-            if card.suit in mark and card.letter in letter:
+        for card in _ideal_cards:
+            if card.suit in marks and card.letter in letters:
                 _proposition.append(card)
-        return from_nation, to_nation, _proposition  # todo: display on frontend
+        return from_suit, to_suit, _proposition  # todo: display on frontend
 
-    def _response(self, game: Game, from_suit: str, to_suit: str, mark: list[str], letter: list[str]) \
+    def _response(self, game: Game, from_suit: str, to_suit: str, marks: list[str], letters: list[str]) \
             -> (str, str, list[Card]) or None:
-        if from_suit in game.turn:
-            from_nation = from_suit
-        else:
-            return None
-        if to_suit in game.turn:
-            to_nation = to_suit
-        else:
-            return None
-        _ideal_cards = AllCard()
+        _ideal_cards = game.ideal_cards
         _response = []
-        for card in _ideal_cards.all_card:
-            if card.suit in mark and card.letter in letter:
+        for card in _ideal_cards:
+            if card.suit in marks and card.letter in letters:
                 _response.append(card)
-        return from_nation, to_nation, _response  # todo: display on frontend
+        return from_suit, to_suit, _response  # todo: display on frontend

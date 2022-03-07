@@ -3,7 +3,7 @@ from Definition.Game import Game
 
 
 class Setup:
-    def __call__(self, game: Game) -> int:
+    def __call__(self, game: Game):
         self._deck_makeup(game=game)
         self._distribute_king(game=game)
         self._shuffle_deck(game=game)
@@ -18,7 +18,7 @@ class Setup:
     def _distribute_king(self, game: Game):
         _kings = game.nature.deck.pop_by_indexes(indexes=game.nature.deck.search_by_letter(letter='K'))
         for king in _kings:
-            game.search_nation_by_suit(king.suit).castle.king.cards = [king]
+            game.search_nation_by_suit(king.suit).castle.king.put_card(card=king)
 
     def _shuffle_deck(self, game: Game):
         game.nature.deck.shuffle()
@@ -29,10 +29,12 @@ class Setup:
                 game.search_nation_by_suit(suit=suit).castle.hands.put_cards(game.nature.deck.draw(quantity=1))
 
     def _check_nation_can_start(self, game: Game) -> bool:
-        _can_start = True
         for suit in VALID_SUIT:
-            _can_start = _can_start and game.search_nation_by_suit(suit=suit).can_start_game()
-        return _can_start
+            if game.search_nation_by_suit(suit=suit).can_start_game():
+                pass
+            else:
+                return False
+        return True
 
     def _make_nation_can_start(self, game: Game):
         for suit in VALID_SUIT:
