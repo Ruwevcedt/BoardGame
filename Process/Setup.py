@@ -1,9 +1,9 @@
-from Definition.Card import AllCard, VALID_SUIT
+from Definition.Card import VALID_SUIT
 from Definition.Game import Game
 
 
 class Setup:
-    def __call__(self, game: Game):
+    def __init__(self, game: Game):
         self._deck_makeup(game=game)
         self._distribute_king(game=game)
         self._shuffle_deck(game=game)
@@ -13,7 +13,7 @@ class Setup:
         self._shuffle_deck(game=game)
 
     def _deck_makeup(self, game: Game):
-        game.nature.deck.content = AllCard().all_card
+        game.nature.deck.put_cards(cards=game.ideal_cards)
 
     def _distribute_king(self, game: Game):
         _kings = game.nature.deck.pop_by_indexes(indexes=game.nature.deck.search_by_letter(letter='K'))

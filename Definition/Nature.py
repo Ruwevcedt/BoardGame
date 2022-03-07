@@ -1,7 +1,7 @@
 import random
 
-from Card import Card, ALL_SUIT
-from Location import Location
+from Definition.Card import Card, ALL_SUIT
+from Definition.Location import Location
 
 
 class Deck(Location):
@@ -23,5 +23,5 @@ class Nature:
     excepted: Location
 
     def __init__(self):
-        self.deck.__init__(suit=None)
-        self.excepted.__init__(suit=None, name="excepted", visible_to=ALL_SUIT, content=[])
+        self.deck = Deck(suit=None)
+        self.excepted = Location(suit=None, name="excepted", visible_to=ALL_SUIT, content=[])

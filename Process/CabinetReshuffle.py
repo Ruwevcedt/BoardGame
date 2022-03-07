@@ -5,7 +5,7 @@ from Definition.Game import Game
 
 
 class CabinetReshuffle:
-    def __call__(self, game: Game):
+    def __init__(self, game: Game):
         self._hide_all_cabinets(game=game)
         self._cabinet_resign(game=game)
         for suit in game.turn:

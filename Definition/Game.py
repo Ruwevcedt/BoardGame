@@ -1,6 +1,6 @@
-from Card import VALID_SUIT, Card, AllCard
-from Nation import Nation
-from Nature import Nature
+from Definition.Card import VALID_SUIT, Card, AllCard
+from Definition.Nation import Nation
+from Definition.Nature import Nature
 
 
 class Game:

@@ -2,7 +2,7 @@ from Definition.Game import Game
 
 
 class NewYear:
-    def __call__(self, game: Game):
+    def __init__(self, game: Game):
         self._check_is_it_alive(game=game)
         self._draw_cards(game=game)
 
@@ -28,9 +28,9 @@ class NewYear:
         _quantity = 0
         for suit in game.turn:
             nation = game.search_nation_by_suit(suit=suit)
-            if nation.castle.cabinet.cabinet.cards[0].letter == 'Q':
+            if nation.castle.cabinet.cabinet.search_by_letter(letter='Q') is not None:
                 _quantity = 2
-            elif nation.castle.cabinet.shadow_cabinet.cards[0].letter == 'Q':
+            elif nation.castle.cabinet.shadow_cabinet.search_by_letter(letter='Q') is not None:
                 nation.castle.cabinet.open_cabinet()
                 _quantity = 2
             else:

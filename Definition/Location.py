@@ -1,6 +1,6 @@
 import random
 
-from Card import Card, ALL_LETTER
+from Definition.Card import Card
 
 
 class Location:
@@ -12,7 +12,7 @@ class Location:
 
     def __init__(self, suit: str or None, name: str, visible_to: list[str or None], content: list[Card]):
         self.suit = suit
-        self.name = name + " of " + suit
+        self.name = name + " of " + str(suit)
         self.default_visibility = visible_to
         self.current_visibility = visible_to
         self.cards: list[Card] = content
@@ -95,11 +95,9 @@ class Location:
 
     def put_card(self, card: Card):
         self.cards.append(card)
-        self.cards.sort(key=ALL_LETTER)
 
     def put_cards(self, cards: list[Card]):
         self.cards.extend(cards)
-        self.cards.sort(key=ALL_LETTER)
 
 
 def move_card(from_location: Location, to_location: Location, from_location_index: int):

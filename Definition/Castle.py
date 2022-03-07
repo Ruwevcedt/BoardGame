@@ -1,5 +1,5 @@
-from Card import ALL_SUIT
-from Location import Location, move_card
+from Definition.Card import ALL_SUIT
+from Definition.Location import Location, move_card
 
 
 class Hands(Location):
@@ -15,8 +15,8 @@ class Cabinet:
 
     def __init__(self, suit: str):
         self.suit = suit
-        self.cabinet.__init__(suit=self.suit, name="cabinet.light", visible_to=ALL_SUIT, content=[])
-        self.shadow_cabinet.__init__(suit=self.suit, name="cabinet.dark", visible_to=[None, self.suit], content=[])
+        self.cabinet = Location(suit=self.suit, name="cabinet.light", visible_to=ALL_SUIT, content=[])
+        self.shadow_cabinet = Location(suit=self.suit, name="cabinet.dark", visible_to=[None, self.suit], content=[])
 
     def initiate_visibility(self):
         self.cabinet.initiate_visibility()
@@ -50,9 +50,9 @@ class Castle:
     def __init__(self, suit: str):
         self.suit = suit
         self.king = Location(suit=self.suit, name='king', visible_to=ALL_SUIT, content=[])
-        self.hands.__init__(suit=self.suit)
-        self.cabinet.__init__(suit=self.suit)
-        self.barracks.__init__(suit=self.suit)
+        self.hands = Hands(suit=self.suit)
+        self.cabinet = Cabinet(suit=self.suit)
+        self.barracks = Barracks(suit=self.suit)
 
     def cabinet_appointment(self, cabinet: int or None, shadow_cabinet: int or None):
         move_card(from_location=self.hands, to_location=self.cabinet.cabinet,

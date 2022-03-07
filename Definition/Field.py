@@ -1,5 +1,5 @@
-from Card import ALL_SUIT
-from Location import Location
+from Definition.Card import ALL_SUIT
+from Definition.Location import Location
 
 
 class Troop(Location):

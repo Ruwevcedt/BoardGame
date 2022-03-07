@@ -4,7 +4,7 @@ from Definition.Location import move_card
 
 
 class Diplomacy:
-    def __call__(self, game: Game):
+    def __init__(self, game: Game):
         for suit in game.turn:
             __negotiation = self._negotiation(game=game, from_suit=suit, to_suit='')  # todo: user input
             if __negotiation[2]:
