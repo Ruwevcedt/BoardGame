@@ -80,4 +80,3 @@ class Field:
         for index, conflict in enumerate(self.conflicts):
             if conflict.hostile == hostile:
                 self.conflicts.pop(index)
-

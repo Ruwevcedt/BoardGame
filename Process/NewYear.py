@@ -1,4 +1,3 @@
-from Definition.Card import ALL_SUIT
 from Definition.Game import Game
 
 
