@@ -2,9 +2,14 @@ from Definition.Game import Game
 
 
 class NewYear:
+    game: Game
+
     def __init__(self, game: Game):
-        self._check_is_it_alive(game=game)
-        self._draw_cards(game=game)
+        self.game = game
+
+    def new_year(self):
+        self._check_is_it_alive(game=self.game)
+        self._draw_cards(game=self.game)
 
     def _downfall(self, game: Game, suit: str):
         game.turn.pop(game.turn.index(suit))

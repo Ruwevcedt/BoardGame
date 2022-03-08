@@ -4,7 +4,11 @@ from Definition.Location import move_card
 
 
 class Diplomacy:
+    game: Game
+
     def __init__(self, game: Game):
+        self.game = game
+
         for suit in game.turn:
             __negotiation = self._negotiation(game=game, from_suit=suit, to_suit='')  # todo: user input
             if __negotiation[2]:
@@ -30,7 +34,7 @@ class Diplomacy:
             __response = self._response(game=game, from_suit=__proposition[1], to_suit=__proposition[0],
                                         marks=[], letters=[])  # todo: user input
             _count -= 1
-            _settlement: bool = __response == __proposition
+            _settlement = __response == __proposition if __response else False
         return from_suit, to_suit, _settlement
 
     def _suggestion(self, game: Game, from_suit: str, to_suit: str, marks: list[str], letters: list[str]) \

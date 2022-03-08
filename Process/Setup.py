@@ -3,14 +3,18 @@ from Definition.Game import Game
 
 
 class Setup:
+    game: Game
+
     def __init__(self, game: Game):
-        self._deck_makeup(game=game)
-        self._distribute_king(game=game)
-        self._shuffle_deck(game=game)
-        self._distribute_hands(game=game)
-        while not self._check_nation_can_start(game=game):
-            self._make_nation_can_start(game=game)
-        self._shuffle_deck(game=game)
+        self.game = game
+
+    def setup(self):
+        self._deck_makeup(game=self.game)
+        self._distribute_king(game=self.game)
+        self._shuffle_deck(game=self.game)
+        self._distribute_hands(game=self.game)
+        while not self._check_nation_can_start(game=self.game):
+            self._make_nation_can_start(game=self.game)
 
     def _deck_makeup(self, game: Game):
         game.nature.deck.put_cards(cards=game.ideal_cards)

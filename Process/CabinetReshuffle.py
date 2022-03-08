@@ -1,17 +1,26 @@
 import random
 
-from Definition.Card import ALL_LETTER, Card
+from Definition.Card import ALL_LETTER
+from Definition.Nation import Nation
 from Definition.Game import Game
 
 
 class CabinetReshuffle:
+    game: Game
+
     def __init__(self, game: Game):
-        self._hide_all_cabinets(game=game)
-        self._cabinet_resign(game=game)
-        for suit in game.turn:
-            self._set_cabinet(game=game, suit=suit, cabinet=None, shadow_cabinet=None)  # todo: user input
-        self._reveal_cabinets(game=game)
-        self._update_turn(game=game)
+        self.game = game
+
+    def cabinet_resign(self):
+        self._hide_all_cabinets(game=self.game)
+        self._cabinet_resign(game=self.game)
+
+    def select_cabinet(self, suit: str, cabinet: int or None, shadow_cabinet: int or None):
+        self._set_cabinet(game=self.game, suit=suit, cabinet=cabinet, shadow_cabinet=shadow_cabinet)
+
+    def cabinet_reshuffle(self):
+        self._reveal_cabinets(game=self.game)
+        self._update_turn(game=self.game)
 
     def _hide_all_cabinets(self, game: Game):
         for suit in game.turn:
@@ -21,10 +30,8 @@ class CabinetReshuffle:
         for suit in game.turn:
             game.search_nation_by_suit(suit=suit).castle.cabinet_resign()
 
-    def _set_cabinet(self, game: Game, suit: str, cabinet: Card or None, shadow_cabinet: Card or None):
-        nation = game.search_nation_by_suit(suit=suit)
-        nation.castle.cabinet.cabinet.cards = cabinet
-        nation.castle.cabinet.shadow_cabinet.cards = shadow_cabinet
+    def _set_cabinet(self, game: Game, suit: str, cabinet: int or None, shadow_cabinet: int or None):
+        game.search_nation_by_suit(suit=suit).castle.cabinet_appointment(cabinet=cabinet, shadow_cabinet=shadow_cabinet)
 
     def _reveal_cabinets(self, game: Game):
         for suit in game.turn:
@@ -43,7 +50,7 @@ class CabinetReshuffle:
         for letter in _power.keys():
             if _power[letter]:
                 random.shuffle(_power[letter])
-                _turn.extend(_power[letter]) # todo: use dice
+                _turn.extend(_power[letter])  # todo: use dice
             else:
                 pass
         game.turn = _turn
