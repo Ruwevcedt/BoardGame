@@ -16,10 +16,14 @@ class Game:
         self.year = 0
         self.game = game
         Setup.Setup(game=self.game).setup()
-        self.spade_user = RandomAction(nation=self.game.search_nation_by_suit(suit=VALID_SUIT[0]))
-        self.heart_user = RandomAction(nation=self.game.search_nation_by_suit(suit=VALID_SUIT[1]))
-        self.diamond_user = RandomAction(nation=self.game.search_nation_by_suit(suit=VALID_SUIT[2]))
-        self.club_user = RandomAction(nation=self.game.search_nation_by_suit(suit=VALID_SUIT[3]))
+        self.spade_user = RandomAction(
+            nation=self.game.search_nation_by_suit(suit=VALID_SUIT[0]))  # todo: Action if user else RandomAction
+        self.heart_user = RandomAction(
+            nation=self.game.search_nation_by_suit(suit=VALID_SUIT[1]))  # todo: Action if user else RandomAction
+        self.diamond_user = RandomAction(
+            nation=self.game.search_nation_by_suit(suit=VALID_SUIT[2]))  # todo: Action if user else RandomAction
+        self.club_user = RandomAction(
+            nation=self.game.search_nation_by_suit(suit=VALID_SUIT[3]))  # todo: Action if user else RandomAction
 
     def round(self):
         self.year += 1
