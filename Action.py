@@ -1,7 +1,7 @@
 import random
 
-from Definition.Card import ALL_SUIT, ALL_LETTER
-from Definition.Nation import Nation
+from Table.Card import ALL_SUIT, ALL_LETTER
+from Table.Nation import Nation
 
 
 class RandomAction:
@@ -37,29 +37,32 @@ class Action:
         self.nation = nation
 
     def select_from_hands(self) -> int:
-        _input = int(input("index_of_the_card_of_your_hands: "))
+        print(self.nation.castle.hands.cards)
+        _input = int(input("index_of_hands: "))
         if _input > len(self.nation.castle.hands.cards):
-            print('over length')
+            print('IndexError: list index out of range')
             self.select_from_hands()
         else:
             return _input
 
     def select_suits(self) -> list[str]:
+        print(ALL_SUIT)
         _input = input("choose_suits_separate_by_space: ").split(" ")
         for char in _input:
             if char in ALL_SUIT:
                 pass
             else:
-                print("there is no such suit")
+                print('NoSuchElementException: no such element')
                 self.select_suits()
         return _input
 
     def select_letters(self) -> list[str]:
+        print(ALL_LETTER)
         _input = input("choose_letters_separate_by_space: ").split(" ")
         for char in _input:
             if char in ALL_LETTER:
                 pass
             else:
-                print("there is no such letter")
+                print('NoSuchElementException: no such element')
                 self.select_letters()
         return _input
