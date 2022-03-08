@@ -48,4 +48,4 @@ class Game:
         CabinetReshuffle.CabinetReshuffle(game=self.game).cabinet_reshuffle()
 
     def _diplomacy(self):
-        Diplomacy.Diplomacy(game=self.game)
+        Diplomacy.Diplomacy(game=self.game)  # todo: use Action or RandomAction
