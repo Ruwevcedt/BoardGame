@@ -21,7 +21,7 @@ class Game:
         self.diamond_user = RandomAction(nation=self.game.search_nation_by_suit(suit=VALID_SUIT[2]))
         self.club_user = RandomAction(nation=self.game.search_nation_by_suit(suit=VALID_SUIT[3]))
 
-    def __call__(self):
+    def round(self):
         self.year += 1
         self._new_year()
         self._cabinet_reshuffle()
