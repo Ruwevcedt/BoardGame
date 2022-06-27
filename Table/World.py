@@ -15,7 +15,7 @@ class World:
 
     def __init__(self, world_id: int):
         self.world_id = world_id
-        self.ideal_cards = AllCard().all_card
+        self.ideal_cards = AllCard().all_card_by_suit_letter
         self.nature = Nature()
         self.spade = Nation(suit=VALID_SUIT[0])
         self.heart = Nation(suit=VALID_SUIT[1])
